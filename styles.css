@@ -49,6 +49,9 @@ table tr:nth-child(odd) {
     background-color: #f9f9f9;
 }
 
+#data-rows{
+    width: 100%;
+}
 /* Make the table responsive */
 @media (max-width: 768px) {
     table {

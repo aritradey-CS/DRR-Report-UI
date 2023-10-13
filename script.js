@@ -26,11 +26,15 @@ function handleButtonClick(e) {
                 <td>${leadCountInput.value}</td>
                 <td class="expected-drr">Expected DRR</td>
                 <td>Generated Date</td>
+                <td>
+                    <button class="save-row">Save</button>
+                    <button class="cancel-row">Cancel</button>
+                </td>
             `;
 
             const dataRows = document.getElementById('data-rows');
             dataRows.appendChild(newRow);
-            // Call the handleDateChange function to update the new row's Month, Year and Number of Days
+            // Call the handleDateChange function to update the new row's Month, Year, and Number of Days
             handleDateChange({ target: newRow });
         }
     } else if (target.classList.contains('cancel-row')) {
@@ -63,13 +67,16 @@ document.addEventListener('DOMContentLoaded', function () {
             <td><button class="delete-row">Delete</button></td>
             <td>Generated ID</td>
             <td><input type="date" class="start-date"></td>
-            <td><input type="date" class="end-date"></td>
+            <td><input type="date" class= "end-date"></td>
             <td class="month-year">Month, Year</td>
             <td><input type="text" class="dates-excluded" placeholder="Enter dates (comma-separated)"></td>
             <td class="num-days">Number of Days</td>
             <td><input type="number" class="lead-count"></td>
             <td class="expected-drr">Expected DRR</td>
-            <td>Generated Date</td>
+            <td>
+                <button class="save-row">Save</button>
+                <button class="cancel-row">Cancel</button>
+            </td>
         `;
 
         dataRows.appendChild(newRow);
