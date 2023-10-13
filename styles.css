@@ -1,0 +1,101 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+button#add-new-button {
+    margin: 20px;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+button#add-new-button:hover {
+    background-color: #0056b3;
+}
+
+.container {
+    max-width: 100vw;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+
+table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+table tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+/* Make the table responsive */
+@media (max-width: 768px) {
+    table {
+        display: block;
+    }
+
+    table thead {
+        display: none;
+    }
+
+    table tbody tr {
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    table tbody td {
+        border: none;
+        text-align: center;
+    }
+
+    button.delete-row {
+        margin-top: 10px;
+        background-color: #ff6666;
+        color: #fff;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+    button.delete-row:hover {
+        background-color: #ff3333;
+    }
+
+    input[type="date"], input[type="number"], input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+}
+
+/* Add a scrollbar for the container on smaller screens */
+@media (max-width: 768px) {
+    .container {
+        overflow-x: auto;
+    }
+}
