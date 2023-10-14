@@ -12,18 +12,24 @@ const rowData = [];
 // Function to handle button clicks (Save and Cancel)
 function handleButtonClick(e) {
     const target = e.target;
-    if (target.classList.contains('save-row')) {
-        const row = target.closest('tr');
+    if (target.classList.contains("save-row")) {
+        const row = target.closest("tr");
         if (row) {
-            const startDateInput = row.querySelector('.start-date');
-            const endDateInput = row.querySelector('.end-date');
-            const leadCountInput = row.querySelector('.lead-count');
-            const monthYearCell = row.querySelector('.month-year');
-            const numDaysCell = row.querySelector('.num-days');
-            const expectedDrrCell = row.querySelector('.expected-drr'); // Expected DRR cell
+            const startDateInput = row.querySelector(".start-date");
+            const endDateInput = row.querySelector(".end-date");
+            const leadCountInput = row.querySelector(".lead-count");
+            const monthYearCell = row.querySelector(".month-year");
+            const numDaysCell = row.querySelector(".num-days");
+            const expectedDrrCell = row.querySelector(".expected-drr"); // Expected DRR cell
 
-            if (!startDateInput.value || !endDateInput.value || !leadCountInput.value) {
-                alert('Please fill in Start Date, End Date, and Lead Count before saving.');
+            if (
+                !startDateInput.value ||
+                !endDateInput.value ||
+                !leadCountInput.value
+            ) {
+                alert(
+                    "Please fill in Start Date, End Date, and Lead Count before saving."
+                );
                 return;
             }
 
@@ -33,16 +39,17 @@ function handleButtonClick(e) {
                 startDate: startDateInput.value,
                 endDate: endDateInput.value,
                 monthYear: monthYearCell.textContent,
-                excludedDates: '',
+                excludedDates: "",
                 leadCount: leadCountInput.value,
                 numDays: numDaysCell.textContent,
                 expectedDrr: expectedDrrCell.textContent,
+                lastUpdated: new Date().toLocaleString(),
             };
 
             rowData.push(rowObject);
 
             // Create a new row with the saved data
-            const newRow = document.createElement('tr');
+            const newRow = document.createElement("tr");
             newRow.innerHTML = `
                 <td><button class="delete-row">Delete</button></td>
                 <td>${rowObject.id}</td>
@@ -53,23 +60,23 @@ function handleButtonClick(e) {
                 <td class="num-days">${rowObject.numDays}</td>
                 <td>${rowObject.leadCount}</td>
                 <td class="expected-drr">${rowObject.expectedDrr}</td>
-                <td>Generated Date</td>
-                <td>
+                <td class="last-updated">${rowObject.lastUpdated}
                     <button class="save-row">Save</button>
                     <button class="cancel-row">Cancel</button>
                 </td>
+                
             `;
 
-            const dataRows = document.getElementById('data-rows');
+            const dataRows = document.getElementById("data-rows");
             dataRows.appendChild(newRow);
 
             // Hide the input fields
-            row.style.display = 'none';
+            row.style.display = "none";
         }
-    } else if (target.classList.contains('cancel-row')) {
-        const row = target.closest('tr');
+    } else if (target.classList.contains("cancel-row")) {
+        const row = target.closest("tr");
         if (row) {
-            if (confirm('Are you sure you want to cancel this entry?')) {
+            if (confirm("Are you sure you want to cancel this entry?")) {
                 // Remove the row if the user confirms
                 row.remove();
             }
@@ -78,14 +85,14 @@ function handleButtonClick(e) {
 }
 
 // Add event listeners to the document once it's loaded
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener("DOMContentLoaded", function () {
     // Add event listener for "Add New" button
-    const addNewButton = document.getElementById('add-new-button');
-    addNewButton.addEventListener('click', addNewRow);
+    const addNewButton = document.getElementById("add-new-button");
+    addNewButton.addEventListener("click", addNewRow);
 
     // Function to add a new row to the table
     function addNewRow() {
-        const newRow = document.createElement('tr');
+        const newRow = document.createElement("tr");
         newRow.innerHTML = `
             <td><button class="delete-row">Delete</button></td>
             <td>Generated ID</td>
@@ -96,13 +103,15 @@ document.addEventListener('DOMContentLoaded', function () {
             <td class="num-days">Number of Days</td>
             <td><input type="number" class="lead-count"></td>
             <td class="expected-drr">Expected DRR</td>
-            <td>
+
+            <td class="last-updated">Last Updated
                 <button class="save-row">Save</button>
-                <button class "cancel-row">Cancel</button>
+                <button class="cancel-row">Cancel</button>
             </td>
+            
         `;
 
-        const dataRows = document.getElementById('data-rows');
+        const dataRows = document.getElementById("data-rows");
         dataRows.appendChild(newRow);
 
         // Re-add the event listeners for date pickers, excluded dates, and buttons
@@ -111,11 +120,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Function to update event listeners for date pickers, excluded dates, and buttons
     function updateEventListeners() {
-        const dataRows = document.getElementById('data-rows');
-        dataRows.removeEventListener('input', handleDateChange);
-        dataRows.removeEventListener('click', handleButtonClick);
-        dataRows.addEventListener('input', handleDateChange);
-        dataRows.addEventListener('click', handleButtonClick);
+        const dataRows = document.getElementById("data-rows");
+        dataRows.removeEventListener("input", handleDateChange);
+        dataRows.removeEventListener("click", handleButtonClick);
+        dataRows.addEventListener("input", handleDateChange);
+        dataRows.addEventListener("click", handleButtonClick);
     }
 
     // Rest of your code remains the same
@@ -124,17 +133,22 @@ document.addEventListener('DOMContentLoaded', function () {
     // Function to handle date changes (selection and exclusion)
     function handleDateChange(e) {
         const target = e.target;
-        if (target.classList.contains('start-date') || target.classList.contains('end-date') || target.classList.contains('dates-excluded') || target.classList.contains('lead-count')) {
+        if (
+            target.classList.contains("start-date") ||
+            target.classList.contains("end-date") ||
+            target.classList.contains("dates-excluded") ||
+            target.classList.contains("lead-count")
+        ) {
             // Get the corresponding row
-            const row = target.closest('tr');
+            const row = target.closest("tr");
             if (row) {
-                const startDateInput = row.querySelector('.start-date');
-                const endDateInput = row.querySelector('.end-date');
-                const excludedDatesInput = row.querySelector('.dates-excluded');
-                const monthYearCell = row.querySelector('.month-year');
-                const numDaysCell = row.querySelector('.num-days');
-                const leadCountInput = row.querySelector('.lead-count');
-                const expectedDrrCell = row.querySelector('.expected-drr');
+                const startDateInput = row.querySelector(".start-date");
+                const endDateInput = row.querySelector(".end-date");
+                const excludedDatesInput = row.querySelector(".dates-excluded");
+                const monthYearCell = row.querySelector(".month-year");
+                const numDaysCell = row.querySelector(".num-days");
+                const leadCountInput = row.querySelector(".lead-count");
+                const expectedDrrCell = row.querySelector(".expected-drr");
 
                 // Calculate numeric representation of Month, Year based on selected start and end dates
                 if (startDateInput && endDateInput && monthYearCell) {
@@ -152,12 +166,20 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (startDateInput && endDateInput && numDaysCell) {
                     const startDate = new Date(startDateInput.value);
                     const endDate = new Date(endDateInput.value);
-                    const daysDiff = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
+                    const daysDiff = Math.ceil(
+                        (endDate - startDate) / (1000 * 60 * 60 * 24)
+                    );
 
                     // Exclude dates from the total number of days
-                    const excludedDates = excludedDatesInput.value.split(',').map(date => date.trim());
-                    excludedDates.forEach(date => {
-                        if (date && date >= startDateInput.value && date <= endDateInput.value) {
+                    const excludedDates = excludedDatesInput.value
+                        .split(",")
+                        .map((date) => date.trim());
+                    excludedDates.forEach((date) => {
+                        if (
+                            date &&
+                            date >= startDateInput.value &&
+                            date <= endDateInput.value
+                        ) {
                             daysDiff--;
                         }
                     });
@@ -173,8 +195,14 @@ document.addEventListener('DOMContentLoaded', function () {
                     expectedDrrCell.textContent = expectedDrr.toFixed(0); // Display as an integer
                 }
             }
-            if (!startDateInput.value || !endDateInput.value || !leadCountInput.value) {
-                alert('Please fill in Start Date, End Date, and Lead Count before saving.');
+            if (
+                !startDateInput.value ||
+                !endDateInput.value ||
+                !leadCountInput.value
+            ) {
+                alert(
+                    "Please fill in Start Date, End Date, and Lead Count before saving."
+                );
                 return;
             }
         }
