@@ -1,3 +1,11 @@
+// Variable to keep track of the current ID
+let currentID = 1;
+
+// Function to generate a new unique ID
+function generateID() {
+    return currentID++;
+}
+
 // Function to handle button clicks (Save and Cancel)
 function handleButtonClick(e) {
     const target = e.target;
@@ -14,15 +22,16 @@ function handleButtonClick(e) {
 
             // Create a new row with the entered data
             const newRow = document.createElement('tr');
+            const newRowID = generateID(); // Generate a unique ID for the new row
             // Create cells for each column
             newRow.innerHTML = `
                 <td><button class="delete-row">Delete</button></td>
-                <td>Generated ID</td>
+                <td>${newRowID}</td>
                 <td>${startDateInput.value}</td>
                 <td>${endDateInput.value}</td>
                 <td class="month-year">Month, Year</td>
                 <td><input type="text" class="dates-excluded" placeholder="Enter dates (comma-separated)"></td>
-                <td class="num-days"></td>
+                <td class="num-days">Number of Days</td>
                 <td>${leadCountInput.value}</td>
                 <td class="expected-drr">Expected DRR</td>
                 <td>Generated Date</td>
@@ -34,6 +43,7 @@ function handleButtonClick(e) {
 
             const dataRows = document.getElementById('data-rows');
             dataRows.appendChild(newRow);
+
             // Call the handleDateChange function to update the new row's Month, Year, and Number of Days
             handleDateChange({ target: newRow });
         }
@@ -54,33 +64,44 @@ document.addEventListener('DOMContentLoaded', function () {
     const addNewButton = document.getElementById('add-new-button');
     addNewButton.addEventListener('click', addNewRow);
 
-    // Add event listeners for date pickers, excluded dates, and buttons
-    const dataRows = document.getElementById('data-rows');
-    dataRows.addEventListener('input', handleDateChange);
-    dataRows.addEventListener('click', handleButtonClick);
-
     // Function to add a new row to the table
-    function addNewRow() {
-        const newRow = document.createElement('tr');
-        // Create cells for each column
-        newRow.innerHTML = `
-            <td><button class="delete-row">Delete</button></td>
-            <td>Generated ID</td>
-            <td><input type="date" class="start-date"></td>
-            <td><input type="date" class= "end-date"></td>
-            <td class="month-year">Month, Year</td>
-            <td><input type="text" class="dates-excluded" placeholder="Enter dates (comma-separated)"></td>
-            <td class="num-days">Number of Days</td>
-            <td><input type="number" class="lead-count"></td>
-            <td class="expected-drr">Expected DRR</td>
-            <td>
-                <button class="save-row">Save</button>
-                <button class="cancel-row">Cancel</button>
-            </td>
-        `;
+function addNewRow() {
+    const newRow = document.createElement('tr');
+    // Create cells for each column
+    newRow.innerHTML = `
+        <td><button class="delete-row">Delete</button></td>
+        <td>Generated ID</td>
+        <td><input type="date" class="start-date"></td>
+        <td><input type="date" class="end-date"></td>
+        <td class="month-year">Month, Year</td>
+        <td><input type="text" class="dates-excluded" placeholder="Enter dates (comma-separated)"></td>
+        <td class="num-days">Number of Days</td>
+        <td><input type="number" class="lead-count"></td>
+        <td class="expected-drr">Expected DRR</td>
+        <td>
+            <button class="save-row">Save</button>
+            <button class="cancel-row">Cancel</button>
+        </td>
+    `;
 
-        dataRows.appendChild(newRow);
+    const dataRows = document.getElementById('data-rows');
+    dataRows.appendChild(newRow);
+
+    // Re-add the event listeners for date pickers, excluded dates, and buttons
+    updateEventListeners();
+}
+
+    // Function to update event listeners for date pickers, excluded dates, and buttons
+    function updateEventListeners() {
+        const dataRows = document.getElementById('data-rows');
+        dataRows.removeEventListener('input', handleDateChange);
+        dataRows.removeEventListener('click', handleButtonClick);
+        dataRows.addEventListener('input', handleDateChange);
+        dataRows.addEventListener('click', handleButtonClick);
     }
+
+    // Rest of your code remains the same
+    // ...
 
     // Function to handle date changes (selection and exclusion)
     function handleDateChange(e) {
@@ -96,11 +117,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 const numDaysCell = row.querySelector('.num-days');
                 const leadCountInput = row.querySelector('.lead-count');
                 const expectedDrrCell = row.querySelector('.expected-drr');
-
+               
+                
                 // Calculate numeric representation of Month, Year based on selected start and end dates
                 if (startDateInput && endDateInput && monthYearCell) {
                     const startDateFormat = new Date(startDateInput.value);
-                    const endDateFormat = new Date(endDateInput.value);
+                    const endDateFormat =  new Date(endDateInput.value);
                     const startMonth = startDateFormat.getMonth() + 1; // Adding 1 to adjust for zero-based months
                     const startYear = startDateFormat.getFullYear();
                     const endMonth = endDateFormat.getMonth() + 1;
@@ -133,6 +155,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     const expectedDrr = leadCount / numDays;
                     expectedDrrCell.textContent = expectedDrr.toFixed(0); // Display as an integer
                 }
+            }
+            if (!startDateInput.value || !endDateInput.value || !leadCountInput.value) {
+                alert('Please fill in Start Date, End Date, and Lead Count before saving.');
+                return;
             }
         }
     }
