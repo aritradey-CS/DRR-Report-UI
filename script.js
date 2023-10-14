@@ -6,6 +6,9 @@ function generateID() {
     return currentID++;
 }
 
+// Initialize an array to store the data for each row
+const rowData = [];
+
 // Function to handle button clicks (Save and Cancel)
 function handleButtonClick(e) {
     const target = e.target;
@@ -15,25 +18,41 @@ function handleButtonClick(e) {
             const startDateInput = row.querySelector('.start-date');
             const endDateInput = row.querySelector('.end-date');
             const leadCountInput = row.querySelector('.lead-count');
+            const monthYearCell = row.querySelector('.month-year');
+            const numDaysCell = row.querySelector('.num-days');
+            const expectedDrrCell = row.querySelector('.expected-drr'); // Expected DRR cell
+
             if (!startDateInput.value || !endDateInput.value || !leadCountInput.value) {
                 alert('Please fill in Start Date, End Date, and Lead Count before saving.');
                 return;
             }
 
-            // Create a new row with the entered data
+            // Save the row data to the array
+            const rowObject = {
+                id: generateID(),
+                startDate: startDateInput.value,
+                endDate: endDateInput.value,
+                monthYear: monthYearCell.textContent,
+                excludedDates: '',
+                leadCount: leadCountInput.value,
+                numDays: numDaysCell.textContent,
+                expectedDrr: expectedDrrCell.textContent,
+            };
+
+            rowData.push(rowObject);
+
+            // Create a new row with the saved data
             const newRow = document.createElement('tr');
-            const newRowID = generateID(); // Generate a unique ID for the new row
-            // Create cells for each column
             newRow.innerHTML = `
                 <td><button class="delete-row">Delete</button></td>
-                <td>${newRowID}</td>
-                <td>${startDateInput.value}</td>
-                <td>${endDateInput.value}</td>
-                <td class="month-year">Month, Year</td>
+                <td>${rowObject.id}</td>
+                <td>${rowObject.startDate}</td>
+                <td>${rowObject.endDate}</td>
+                <td class="month-year">${rowObject.monthYear}</td>
                 <td><input type="text" class="dates-excluded" placeholder="Enter dates (comma-separated)"></td>
-                <td class="num-days">Number of Days</td>
-                <td>${leadCountInput.value}</td>
-                <td class="expected-drr">Expected DRR</td>
+                <td class="num-days">${rowObject.numDays}</td>
+                <td>${rowObject.leadCount}</td>
+                <td class="expected-drr">${rowObject.expectedDrr}</td>
                 <td>Generated Date</td>
                 <td>
                     <button class="save-row">Save</button>
@@ -44,8 +63,8 @@ function handleButtonClick(e) {
             const dataRows = document.getElementById('data-rows');
             dataRows.appendChild(newRow);
 
-            // Call the handleDateChange function to update the new row's Month, Year, and Number of Days
-            handleDateChange({ target: newRow });
+            // Hide the input fields
+            row.style.display = 'none';
         }
     } else if (target.classList.contains('cancel-row')) {
         const row = target.closest('tr');
@@ -65,31 +84,30 @@ document.addEventListener('DOMContentLoaded', function () {
     addNewButton.addEventListener('click', addNewRow);
 
     // Function to add a new row to the table
-function addNewRow() {
-    const newRow = document.createElement('tr');
-    // Create cells for each column
-    newRow.innerHTML = `
-        <td><button class="delete-row">Delete</button></td>
-        <td>Generated ID</td>
-        <td><input type="date" class="start-date"></td>
-        <td><input type="date" class="end-date"></td>
-        <td class="month-year">Month, Year</td>
-        <td><input type="text" class="dates-excluded" placeholder="Enter dates (comma-separated)"></td>
-        <td class="num-days">Number of Days</td>
-        <td><input type="number" class="lead-count"></td>
-        <td class="expected-drr">Expected DRR</td>
-        <td>
-            <button class="save-row">Save</button>
-            <button class="cancel-row">Cancel</button>
-        </td>
-    `;
+    function addNewRow() {
+        const newRow = document.createElement('tr');
+        newRow.innerHTML = `
+            <td><button class="delete-row">Delete</button></td>
+            <td>Generated ID</td>
+            <td><input type="date" class="start-date"></td>
+            <td><input type="date" class="end-date"></td>
+            <td class="month-year">Month, Year</td>
+            <td><input type="text" class="dates-excluded" placeholder="Enter dates (comma-separated)"></td>
+            <td class="num-days">Number of Days</td>
+            <td><input type="number" class="lead-count"></td>
+            <td class="expected-drr">Expected DRR</td>
+            <td>
+                <button class="save-row">Save</button>
+                <button class "cancel-row">Cancel</button>
+            </td>
+        `;
 
-    const dataRows = document.getElementById('data-rows');
-    dataRows.appendChild(newRow);
+        const dataRows = document.getElementById('data-rows');
+        dataRows.appendChild(newRow);
 
-    // Re-add the event listeners for date pickers, excluded dates, and buttons
-    updateEventListeners();
-}
+        // Re-add the event listeners for date pickers, excluded dates, and buttons
+        updateEventListeners();
+    }
 
     // Function to update event listeners for date pickers, excluded dates, and buttons
     function updateEventListeners() {
@@ -117,12 +135,11 @@ function addNewRow() {
                 const numDaysCell = row.querySelector('.num-days');
                 const leadCountInput = row.querySelector('.lead-count');
                 const expectedDrrCell = row.querySelector('.expected-drr');
-               
-                
+
                 // Calculate numeric representation of Month, Year based on selected start and end dates
                 if (startDateInput && endDateInput && monthYearCell) {
                     const startDateFormat = new Date(startDateInput.value);
-                    const endDateFormat =  new Date(endDateInput.value);
+                    const endDateFormat = new Date(endDateInput.value);
                     const startMonth = startDateFormat.getMonth() + 1; // Adding 1 to adjust for zero-based months
                     const startYear = startDateFormat.getFullYear();
                     const endMonth = endDateFormat.getMonth() + 1;
