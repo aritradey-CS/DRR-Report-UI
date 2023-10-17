@@ -17,7 +17,7 @@ body {
   padding: 0;
 }
 .container {
-  width: 94%;;
+  width: 94%;
   margin: 0 5% 0px 2%;
   padding: 20px;
   background-color: #fff;
@@ -35,6 +35,25 @@ td {
   text-align: left;
   padding: 10px;
   border-bottom: 1px solid #ddd;
+}
+@media (max-width: 1320px) {
+  .container {
+    width: 94%;
+    margin: 5px 5px 5px 10px;
+  }
+  .container > table {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  th,
+  td {
+    /* display: flex;
+    flex-wrap: wrap; */
+  }
+  td {
+    height: 20px;
+    margin: 2px 0px -4px 2px;
+  }
 }
 
 @media (max-width: 600px) {
@@ -216,16 +235,34 @@ td {
   padding: 0;
 }
 
-@media (max-width: 600px) {
-  #add-new-button{
+@media (max-width: 1320px) {
+  .save-row {
+    width: 7vw;
+    margin-right: -35px;
+    margin-left: 0;
+  }
+  .cancel-row {
+    width: 7vw;
+    margin-left: 0px;
+  }
+  #add-new-button {
     display: flex;
     height: 35px;
     font-size: 15px;
     width: 70px;
     border: none;
-    
     border-radius: 5px;
-    
+    padding: 0px 0px 0px 5px;
+  }
+}
+@media (max-width: 600px) {
+  #add-new-button {
+    display: flex;
+    height: 35px;
+    font-size: 15px;
+    width: 70px;
+    border: none;
+    border-radius: 5px;
     padding: 0px 0px 0px 5px;
   }
   #data-rows {
@@ -234,27 +271,27 @@ td {
 
   .save-row {
     width: 20vw;
-    margin-right: -35px;
+    margin-right: 10px;
     margin-left: 0;
   }
   .cancel-row {
     width: 20vw;
-    margin-right: 0;
+    margin-right: 0px;
   }
 }
-@media (max-width: 400px){
+@media (max-width: 400px) {
   #data-rows {
     margin: -4px 0px 0px 0px;
-}
-.save-row {
-  width: 22vw;
-  margin-right: 2%;
-  margin-left: 0;
-}
-.cancel-row {
-  width: 22vw;
-  margin-left: 10px;
-}
+  }
+  .save-row {
+    width: 22vw;
+    margin-right: 2%;
+    margin-left: 0;
+  }
+  .cancel-row {
+    width: 22vw;
+    margin-left: 10px;
+  }
 }
 
 /* Additional styles for responsiveness */
@@ -285,7 +322,7 @@ td {
     font-size: 12px;
     padding: 12px 12px;
   }
- 
+
   .lead-count {
     font-size: 12px;
     padding: 4px;
