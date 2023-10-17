@@ -95,9 +95,39 @@ function handleButtonClick(e) {
 
       const newRow = document.createElement("tr");
       newRow.innerHTML = `
-      <td><button class="star-row">
-    <i class="far fa-star"></i> Star
-  </button></td>
+      <td>
+  <button class="star-row"
+    style="
+      display: flex;
+      outline: none;
+      cursor: pointer;
+      font-size: 12px;
+      line-height: 1;
+      border-radius: 500px;
+      transition: background-color 0.3s ease 0s, transform 0.3s ease 0s, box-shadow 0.3s ease 0s;
+      border: 1px solid transparent;
+      letter-spacing: 2px;
+      min-width: 0px;
+      min-width: 29px;
+      align-items: center;
+      justify-content: center;
+      white-space: normal;
+      font-weight: 100;
+      text-align: center;
+      padding: 15px 10px;
+      color: rgb(255, 255, 255);
+      background-color: rgb(30, 215, 96);
+      height: 20px;
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px;
+      transform: scale(1);
+    "
+    onmouseover="this.style.transform='scale(1.04)'; this.style.backgroundColor='#21e065'; this.style.boxShadow='0 6px 8px rgba(0, 0, 0, 0.2)';"
+    onmouseout="this.style.transform='scale(1)'; this.style.backgroundColor='#1ED760'; this.style.boxShadow='0 4px 6px rgba(0, 0, 0, 0.1)';"
+  >
+    <i class="far fa-star" style="margin-right: 5px;"></i> Star
+  </button>
+</td>
+
         <td>${rowObject.id}</td>
         <td>${rowObject.startDate}</td>
         <td>${rowObject.endDate}</td>
@@ -107,8 +137,55 @@ function handleButtonClick(e) {
         <td>${rowObject.leadCount}</td>
         <td class="expected-drr">${rowObject.expectedDrr}</td>
         <td class="last-updated">${rowObject.lastUpdated}
-            <button class="save-row">Save</button>
-            <button class="cancel-row">Cancel</button>
+        <button class="save-row" 
+        style="
+        background-color: var(--secondary-color); 
+        color: #fff; border: none; 
+        border-radius: 3px; 
+        margin-left: 2px; 
+        cursor: pointer; 
+        width: 6.4vw;
+        margin: 5px 0px 5px 55px; 
+        display: flex; 
+        align-items: center; 
+        padding: 10px 15px; 
+        font-size: 14px;" 
+        
+        onmouseover="this.style.transform='scale(1.04)'; 
+        this.style.backgroundColor='var(--secondary-color)'; 
+        this.style.boxShadow='0 6px 8px rgba(0, 0, 0, 0.2)';" 
+        
+        onmouseout="this.style.transform='scale(1)'; 
+        this.style.backgroundColor='var(--primary-color)'; 
+        this.style.boxShadow='0 4px 6px rgba(0, 0, 0, 0.1)';
+        ">
+        <i class="fas fa-save" style="margin-right: 5px;"></i> Save
+      </button>
+      
+      <button class="cancel-row" style="
+      background-color: var(--danger-color); 
+      color: #fff; border: none; 
+      border-radius: 3px; 
+      margin-left: 2px; 
+      cursor: pointer; 
+      width: 6.4vw; 
+      margin: 5px 0px 5px 55px;
+      display: flex; 
+      align-items: center; 
+      padding: 10px 15px; 
+      font-size: 14px;" 
+      
+      onmouseover="this.style.transform='scale(1.04)'; 
+      this.style.backgroundColor='#ff5555'; 
+      this.style.boxShadow='0 6px 8px rgba(0, 0, 0, 0.2)';" 
+      
+      onmouseout="this.style.transform='scale(1)'; 
+      this.style.backgroundColor='#ff0000'; 
+      this.style.boxShadow='0 4px 6px rgba(0, 0, 0, 0.1)';
+      ">
+        <i class="fas fa-times" style="margin-right: 5px;"></i> Cancel
+      </button>
+      
         </td>
       `;
 
@@ -152,26 +229,109 @@ document.addEventListener("DOMContentLoaded", function () {
   function addNewRow() {
     const newRow = document.createElement("tr");
     newRow.innerHTML = `
-    <td><button class="star-row">
-    <i class="far fa-star"></i> Star
-  </button></td>
+    <td>
+  <button class="star-row"
+    style="
+      display: flex;
+      outline: none;
+      cursor: pointer;
+      font-size: 12px;
+      line-height: 1;
+      border-radius: 500px;
+      transition: background-color 0.3s ease 0s, transform 0.3s ease 0s, box-shadow 0.3s ease 0s;
+      border: 1px solid transparent;
+      letter-spacing: 2px;
+      min-width: 0px;
+      min-width: 29px;
+      align-items: center;
+      justify-content: center;
+      white-space: normal;
+      font-weight: 100;
+      text-align: center;
+      padding: 15px 10px;
+      color: rgb(255, 255, 255);
+      background-color: rgb(30, 215, 96);
+      height: 20px;
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px;
+      transform: scale(1);
+    "
+    onmouseover="this.style.transform='scale(1.04)'; this.style.backgroundColor='#21e065'; this.style.boxShadow='0 6px 8px rgba(0, 0, 0, 0.2)';"
+    onmouseout="this.style.transform='scale(1)'; this.style.backgroundColor='#1ED760'; this.style.boxShadow='0 4px 6px rgba(0, 0, 0, 0.1)';"
+  >
+    <i class="far fa-star" style="margin-right: 5px;"></i> Star
+  </button>
+</td>
 
-        <td>Generated ID</td>
-        <td><input type="date" class="start-date"></td>
-        <td><input type="date" class="end-date"></td>
-        <td class="month-year">Month, Year</td>
-        <td><input type="text" class="dates-excluded" placeholder="Enter dates (comma-separated)"></td>
-        <td class="num-days">Number of Days</td>
-        <td><input type="number" class="lead-count"></td>
-        <td class="expected-drr">Expected DRR</td>
-        <td class="last-updated">Last Updated
-            <button class="save-row">Save</button>
-            <button class="cancel-row">Cancel</button>
-        </td>
+      <td>Generated ID</td>
+      <td><input type="date" class="start-date"></td>
+      <td><input type="date" class="end-date"></td>
+      <td class="month-year">Month, Year</td>
+      <td><input type="text" class="dates-excluded" placeholder="Enter dates (comma-separated)"></td>
+      <td class="num-days">Number of Days</td>
+      <td><input type="number" class="lead-count"></td>
+      <td class="expected-drr">Expected DRR</td>
+      <td class="last-updated">Last Updated
+      <button class="save-row" style="
+      background-color: var(--secondary-color);
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 3px;
+    /* margin-left: 2px; */
+    margin: 5px 0px 5px 5px;
+    cursor: pointer;
+    width: 6.4vw;
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    font-size: 14px;
+    transform: scale(1);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px;
+
+      
+    onmouseover="this.style.transform='scale(1.04)'; 
+    this.style.backgroundColor='var(--secondary-color)'; 
+    this.style.boxShadow='0 6px 8px rgba(0, 0, 0, 0.2)';" 
+    
+    onmouseout="this.style.transform='scale(1)'; 
+    this.style.backgroundColor='var(--primary-color)'; 
+    this.style.boxShadow='0 4px 6px rgba(0, 0, 0, 0.1)';"
+      >
+  <i class="fas fa-save" style="margin-right: 5px;"></i> Save
+</button>
+
+<button class="cancel-row" style="
+background-color: var(--danger-color); 
+color: #fff; 
+border: none; 
+border-radius: 3px; 
+margin-left: 5px; 
+cursor: pointer; 
+width: 6.4vw; 
+display: flex; 
+align-items: 
+center; 
+padding: 10px 15px; 
+font-size: 14px;" 
+
+onmouseover="this.style.transform='scale(1.04)'; 
+this.style.backgroundColor='#ff5555'; 
+this.style.boxShadow='0 6px 8px rgba(0, 0, 0, 0.2)';" 
+
+onmouseout="this.style.transform='scale(1)'; 
+this.style.backgroundColor='#ff0000'; 
+this.style.boxShadow='0 4px 6px rgba(0, 0, 0, 0.1)';"
+>
+  <i class="fas fa-times" style="margin-right: 5px;"></i> Cancel
+</button>
+
+
+    
+    </td>
     `;
 
     const dataRows = document.getElementById("data-rows");
     dataRows.appendChild(newRow);
+    row.style.display = "none";
     updateEventListeners();
   }
 
