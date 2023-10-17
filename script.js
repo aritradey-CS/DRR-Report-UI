@@ -36,6 +36,17 @@ function handleButtonClick(e) {
         .map((date) => date.trim())
         .filter(Boolean);
 
+      // Check if excluded dates are outside the range
+      const invalidDates = excludedDates.filter((date) => {
+        const dateObj = new Date(date);
+        return dateObj < startDate || dateObj > endDate;
+      });
+
+      if (invalidDates.length > 0) {
+        alert("Some excluded dates are outside the range of Start Date and End Date.");
+        return;
+      }
+
       // Calculate the excluded dates and print to the console
       const excludedDatesStr = excludedDates.join(", ");
       console.log("Excluded Dates: " + excludedDatesStr);
@@ -137,59 +148,66 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function handleDateChange(e) {
     const target = e.target;
-    if (
-      target.classList.contains("start-date") ||
-      target.classList.contains("end-date") ||
-      target.classList.contains("dates-excluded") ||
-      target.classList.contains("lead-count")
-    ) {
-      const row = target.closest("tr");
-      if (row) {
-        const startDateInput = row.querySelector(".start-date");
-        const endDateInput = row.querySelector(".end-date");
-        const excludedDatesInput = row.querySelector(".dates-excluded");
-        const monthYearCell = row.querySelector(".month-year");
-        const numDaysCell = row.querySelector(".num-days");
-        const leadCountInput = row.querySelector(".lead-count");
-        const expectedDrrCell = row.querySelector(".expected-drr");
-
-        if (startDateInput && endDateInput && monthYearCell) {
-          const startDateFormat = new Date(startDateInput.value);
-          const endDateFormat = new Date(endDateInput.value);
-          const startMonth = startDateFormat.getMonth() + 1;
-          const startYear = startDateFormat.getFullYear();
-          const endMonth = endDateFormat.getMonth() + 1;
-          const endYear = endDateFormat.getFullYear();
-          const monthYear = `${startMonth}, ${startYear} - ${endMonth}, ${endYear}`;
-          monthYearCell.textContent = monthYear;
-        }
-
-        if (startDateInput && endDateInput && numDaysCell) {
-          const startDate = new Date(startDateInput.value);
-          const endDate = new Date(endDateInput.value);
-          const daysDiff = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
-
-          const excludedDates = excludedDatesInput.value
-            .split(",")
-            .map((date) => date.trim())
-            .filter(Boolean);
-
-          numDaysCell.textContent = daysDiff - excludedDates.length;
-        }
-
-        if (leadCountInput && numDaysCell && expectedDrrCell) {
-          const leadCount = parseInt(leadCountInput.value);
-          const numDays = parseInt(numDaysCell.textContent);
-          const expectedDrr = leadCount / numDays;
-          expectedDrrCell.textContent = expectedDrr.toFixed(0);
-        }
+    const row = target.closest("tr");
+    if (!row) return;
+  
+    const startDateInput = row.querySelector(".start-date");
+    const endDateInput = row.querySelector(".end-date");
+    const excludedDatesInput = row.querySelector(".dates-excluded");
+    const monthYearCell = row.querySelector(".month-year");
+    const numDaysCell = row.querySelector(".num-days");
+    const leadCountInput = row.querySelector(".lead-count");
+    const expectedDrrCell = row.querySelector(".expected-drr");
+  
+    if (target.classList.contains("start-date") || target.classList.contains("end-date")) {
+      if (startDateInput && endDateInput && monthYearCell) {
+        const startDateFormat = new Date(startDateInput.value);
+        const endDateFormat = new Date(endDateInput.value);
+        const startMonth = startDateFormat.getMonth() + 1;
+        const startYear = startDateFormat.getFullYear();
+        const endMonth = endDateFormat.getMonth() + 1;
+        const endYear = endDateFormat.getFullYear();
+        const monthYear = `${startMonth}, ${startYear} - ${endMonth}, ${endYear}`;
+        monthYearCell.textContent = monthYear;
       }
-      if (!startDateInput.value || !endDateInput.value || !leadCountInput.value) {
-        alert("Please fill in Start Date, End Date, and Lead Count before saving.");
-        return;
+  
+      if (startDateInput && endDateInput && numDaysCell) {
+        const startDate = new Date(startDateInput.value);
+        const endDate = new Date(endDateInput.value);
+        const daysDiff = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
+        numDaysCell.textContent = daysDiff;
       }
     }
+  
+    if (startDateInput && endDateInput && excludedDatesInput && numDaysCell && leadCountInput && expectedDrrCell) {
+      const startDate = new Date(startDateInput.value);
+      const endDate = new Date(endDateInput.value);
+      const excludedDates = excludedDatesInput.value
+        .split(",")
+        .map((date) => date.trim())
+        .filter(Boolean);
+  
+      // Check if excluded dates are outside the range
+      const invalidDates = excludedDates.filter((date) => {
+        const dateObj = new Date(date);
+        return dateObj < startDate || dateObj > endDate;
+      });
+  
+      if (invalidDates.length > 0) {
+        alert("Some excluded dates are outside the range of Start Date and End Date.");
+        return;
+      }
+  
+      // Calculate the number of days
+      const daysDiff = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24)) - excludedDates.length;
+      numDaysCell.textContent = daysDiff;
+  
+      const leadCount = parseInt(leadCountInput.value);
+      const numDays = parseInt(numDaysCell.textContent);
+      const expectedDrr = leadCount / numDays;
+      expectedDrrCell.textContent = expectedDrr.toFixed(0);
+    }
   }
-
+  
   updateEventListeners();
 });
