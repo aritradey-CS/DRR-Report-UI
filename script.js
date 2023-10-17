@@ -161,7 +161,7 @@ function handleButtonClick(e) {
         ">
         <i class="fas fa-save" style="margin-right: 5px;"></i> Save
       </button>
-      
+
       <button class="cancel-row" style="
       background-color: var(--danger-color); 
       color: #fff; border: none; 
@@ -271,40 +271,38 @@ document.addEventListener("DOMContentLoaded", function () {
       <td><input type="number" class="lead-count"></td>
       <td class="expected-drr">Expected DRR</td>
       <td class="last-updated">Last Updated
-      <button class="save-row" style="
-      background-color: var(--secondary-color);
-    color: rgb(255, 255, 255);
-    border: none;
-    border-radius: 3px;
-    /* margin-left: 2px; */
-    margin: 5px 0px 5px 5px;
-    cursor: pointer;
-    width: 6.4vw;
-    display: flex;
-    align-items: center;
-    padding: 10px 15px;
-    font-size: 14px;
-    transform: scale(1);
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px;
+      <button class="save-row" 
+        style="
+        background-color: var(--secondary-color); 
+        color: #fff; border: none; 
+        border-radius: 3px; 
+        margin-left: 2px; 
+        cursor: pointer; 
+        width: 6.4vw;
+        margin: 5px 0px 5px 35px;
+        display: flex; 
+        align-items: center; 
+        padding: 10px 15px; 
+        font-size: 14px;" 
+        
+        onmouseover="this.style.transform='scale(1.04)'; 
+        this.style.backgroundColor='var(--secondary-color)'; 
+        this.style.boxShadow='0 6px 8px rgba(0, 0, 0, 0.2)';" 
+        
+        onmouseout="this.style.transform='scale(1)'; 
+        this.style.backgroundColor='var(--primary-color)'; 
+        this.style.boxShadow='0 4px 6px rgba(0, 0, 0, 0.1)';
+        ">
+        <i class="fas fa-save" style="margin-right: 5px;"></i> Save
+      </button>
 
-      
-    onmouseover="this.style.transform='scale(1.04)'; 
-    this.style.backgroundColor='var(--secondary-color)'; 
-    this.style.boxShadow='0 6px 8px rgba(0, 0, 0, 0.2)';" 
-    
-    onmouseout="this.style.transform='scale(1)'; 
-    this.style.backgroundColor='var(--primary-color)'; 
-    this.style.boxShadow='0 4px 6px rgba(0, 0, 0, 0.1)';"
-      >
-  <i class="fas fa-save" style="margin-right: 5px;"></i> Save
-</button>
 
 <button class="cancel-row" style="
 background-color: var(--danger-color); 
 color: #fff; 
 border: none; 
 border-radius: 3px; 
-margin-left: 5px; 
+margin-left: 35px; 
 cursor: pointer; 
 width: 6.4vw; 
 display: flex; 
