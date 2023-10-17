@@ -17,7 +17,7 @@ body {
   padding: 0;
 }
 .container {
-  max-width: 95vw;
+  width: 94%;;
   margin: 0 5% 0px 2%;
   padding: 20px;
   background-color: #fff;
@@ -36,9 +36,48 @@ td {
   padding: 10px;
   border-bottom: 1px solid #ddd;
 }
+
 @media (max-width: 600px) {
   .container {
-    margin: 5px 2px 2px 0px;
+    width: 85vw;
+    margin: 5px 5px 5px 10px;
+  }
+  .container > table {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  th,
+  td {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  td {
+    height: 20px;
+    margin: 2px 0px -4px 2px;
+  }
+  .month-year {
+    height: 20px;
+    margin: 2px 0px -4px 2px;
+  }
+  .num-days {
+    height: 20px;
+    margin: 2px 0px -4px 2px;
+  }
+  .expected-drr {
+    height: 20px;
+    margin: 2px 0px -4px 2px;
+  }
+  .last-updated {
+    height: 42px;
+    flex-direction: row;
+    padding: 0;
+    margin: 0vh 2px;
+  }
+}
+@media (max-width: 400px) {
+  .container {
+    display: contents;
+    margin: 5px 5px 5px 5px;
   }
   .container > table {
     display: flex;
@@ -178,18 +217,44 @@ td {
 }
 
 @media (max-width: 600px) {
+  #add-new-button{
+    display: flex;
+    height: 35px;
+    font-size: 15px;
+    width: 70px;
+    border: none;
+    
+    border-radius: 5px;
+    
+    padding: 0px 0px 0px 5px;
+  }
   #data-rows {
     margin: -4px 0px 0px 10px;
   }
 
   .save-row {
-    width: 15vw;
-    margin-right: -18%;
+    width: 20vw;
+    margin-right: -35px;
     margin-left: 0;
   }
   .cancel-row {
-    width: 15vw;
+    width: 20vw;
+    margin-right: 0;
   }
+}
+@media (max-width: 400px){
+  #data-rows {
+    margin: -4px 0px 0px 0px;
+}
+.save-row {
+  width: 22vw;
+  margin-right: 2%;
+  margin-left: 0;
+}
+.cancel-row {
+  width: 22vw;
+  margin-left: 10px;
+}
 }
 
 /* Additional styles for responsiveness */
@@ -217,27 +282,12 @@ td {
 /* Styles for screens with a maximum width of 400px */
 @media (max-width: 400px) {
   .star-row {
-    font-size: 8px;
-    padding: 8px 6px;
+    font-size: 12px;
+    padding: 12px 12px;
   }
-  .cancel-row {
-    margin-left: 0;
-  }
-
+ 
   .lead-count {
     font-size: 12px;
     padding: 4px;
-  }
-}
-/* Styles for screens with a maximum width of 320px */
-@media (max-width: 320px) {
-  .star-row {
-    font-size: 6px;
-    padding: 6px 4px;
-  }
-
-  .lead-count {
-    font-size: 10px;
-    padding: 3px;
   }
 }
