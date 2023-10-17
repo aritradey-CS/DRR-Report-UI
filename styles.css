@@ -18,20 +18,59 @@ body {
 }
 .container {
   max-width: 95vw;
-  margin: 0 auto;
+  margin: 0 5% 0px 2%;
   padding: 20px;
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
 }
 table {
+  /* display: flex; */
   width: 100%;
   border-collapse: collapse;
 }
 th,
 td {
+  /* display: flex; */
   text-align: left;
   padding: 10px;
   border-bottom: 1px solid #ddd;
+}
+@media (max-width: 600px) {
+  .container {
+    margin: 5px 2px 2px 0px;
+  }
+  .container > table {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  th,
+  td {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  td {
+    height: 20px;
+    margin: 2px 0px -4px 2px;
+  }
+  .month-year {
+    height: 20px;
+    margin: 2px 0px -4px 2px;
+  }
+  .num-days {
+    height: 20px;
+    margin: 2px 0px -4px 2px;
+  }
+  .expected-drr {
+    height: 20px;
+    margin: 2px 0px -4px 2px;
+  }
+  .last-updated {
+    height: 42px;
+    flex-direction: row;
+    padding: 0;
+    margin: 0vh 2px;
+  }
 }
 /* Specific styles for the "Add New" button */
 #add-new-button {
@@ -133,107 +172,72 @@ td {
 .cancel-row i {
   margin-right: 5px;
 }
+#data-rows {
+  margin: 0;
+  padding: 0;
+}
+
+@media (max-width: 600px) {
+  #data-rows {
+    margin: -4px 0px 0px 10px;
+  }
+
+  .save-row {
+    width: 15vw;
+    margin-right: -18%;
+    margin-left: 0;
+  }
+  .cancel-row {
+    width: 15vw;
+  }
+}
+
 /* Additional styles for responsiveness */
 @media (max-width: 600px) {
   .star-row {
     font-size: 10px;
     padding: 10px 8px;
   }
-  .save-row,
+}
+/* Example: Make the "star-row" button smaller on smaller screens */
+@media (max-width: 600px) {
+  .star-row {
+    font-size: 10px;
+    padding: 10px 8px;
+  }
+}
+/* Styles for screens with a maximum width of 600px */
+@media (max-width: 600px) {
+  .star-row {
+    font-size: 10px;
+    padding: 10px 8px;
+  }
+}
+
+/* Styles for screens with a maximum width of 400px */
+@media (max-width: 400px) {
+  .star-row {
+    font-size: 8px;
+    padding: 8px 6px;
+  }
   .cancel-row {
-    width: 100%;
     margin-left: 0;
-    .save-row,
-    .cancel-row i {
-      display: none;
-    }
-    /* Style the "month-year" element differently on smaller screens */
-    .month-year {
-      font-size: 14px;
-      padding: 5px;
-    }
-    /* Style "num-days" element differently on smaller screens */
-    .num-days {
-      font-size: 14px;
-      padding: 5px;
-    }
-  }
-  /* Example: Make the "star-row" button smaller on smaller screens */
-  @media (max-width: 600px) {
-    .star-row {
-      font-size: 10px;
-      padding: 10px 8px;
-    }
-  }
-  /* Styles for screens with a maximum width of 600px */
-  @media (max-width: 600px) {
-    .star-row {
-      font-size: 10px;
-      padding: 10px 8px;
-    }
-
-    .save-row,
-    .cancel-row {
-      width: 100%;
-      margin-left: 0;
-    }
-
-    .save-row,
-    .cancel-row i {
-      display: none;
-    }
-
-    .month-year {
-      font-size: 14px;
-      padding: 5px;
-    }
-
-    .num-days {
-      font-size: 14px;
-      padding: 5px;
-    }
   }
 
-  /* Styles for screens with a maximum width of 400px */
-  @media (max-width: 400px) {
-    .star-row {
-      font-size: 8px;
-      padding: 8px 6px;
-    }
-    .cancel-row {
-      margin-left: 0;
-    }
-
-    .month-year,
-    .num-days {
-      font-size: 12px;
-      padding: 4px;
-    }
-
-    .lead-count {
-      font-size: 12px;
-      padding: 4px;
-    }
+  .lead-count {
+    font-size: 12px;
+    padding: 4px;
   }
-  /* Styles for screens with a maximum width of 320px */
-  @media (max-width: 320px) {
-    .star-row {
-      font-size: 6px;
-      padding: 6px 4px;
-    }
-    .save-row {
-      margin-left: 0;
-    }
+}
+/* Styles for screens with a maximum width of 320px */
+@media (max-width: 320px) {
+  .star-row {
+    font-size: 6px;
+    padding: 6px 4px;
+  }
 
-    .month-year,
-    .num-days {
-      font-size: 10px;
-      padding: 3px;
-    }
-
-    .lead-count {
-      font-size: 10px;
-      padding: 3px;
-    }
+  .lead-count {
+    font-size: 10px;
+    padding: 3px;
   }
 }
