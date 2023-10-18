@@ -9,9 +9,6 @@
   --danger-color: #ff6666;
   --danger-hover-color: #ff3333;
 }
-s 
-/* Additional styles for elements */
-
 /* Body and global styles */
 body {
   font-family: Arial, sans-serif;
@@ -19,7 +16,6 @@ body {
   margin: 0;
   padding: 0;
 }
-
 .container {
   max-width: 95vw;
   margin: 0 auto;
@@ -27,40 +23,36 @@ body {
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-
 table {
   width: 100%;
   border-collapse: collapse;
 }
-
-th, td {
+th,
+td {
   text-align: left;
   padding: 10px;
   border-bottom: 1px solid #ddd;
 }
-
 /* Specific styles for the "Add New" button */
 #add-new-button {
   align-items: center;
-    background-color: #2196F3;
-    height: 2vw;
-    width: 8vw;
-    text-align: center;
-    display: flex;
-    margin: 5px 0px 10px 12px;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 15px;
-    transition: background-color 0.3s;}
-
-#add-new-button:hover {
-  background-color: #1976D2;
+  background-color: #2196f3;
+  height: 2vw;
+  width: 8vw;
+  text-align: center;
+  display: flex;
+  margin: 5px 0px 10px 12px;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 15px;
+  transition: background-color 0.3s;
 }
-
-/* Other custom styles can be added here */
+#add-new-button:hover {
+  background-color: #1976d2;
+}
 /* Styles for the "star-row" button */
 .star-row {
   display: flex;
@@ -69,7 +61,8 @@ th, td {
   font-size: 12px;
   line-height: 1;
   border-radius: 500px;
-  transition: background-color 0.3s ease 0s, transform 0.3s ease 0s, box-shadow 0.3s ease 0s;
+  transition: background-color 0.3s ease 0s, transform 0.3s ease 0s,
+    box-shadow 0.3s ease 0s;
   border: 1px solid transparent;
   letter-spacing: 2px;
   min-width: 0px;
@@ -86,17 +79,14 @@ th, td {
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px;
   transform: scale(1);
 }
-
 .star-row:hover {
   transform: scale(1.04);
   background-color: #21e065;
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
 }
-
 .star-row i {
   margin-right: 5px;
 }
-
 /* Styles for the "save-row" button */
 .save-row {
   background-color: var(--secondary-color);
@@ -112,17 +102,14 @@ th, td {
   padding: 10px 15px;
   font-size: 14px;
 }
-
 .save-row:hover {
   transform: scale(1.04);
   background-color: var(--secondary-color);
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
 }
-
 .save-row i {
   margin-right: 5px;
 }
-
 /* Styles for the "cancel-row" button */
 .cancel-row {
   background-color: var(--danger-color);
@@ -138,129 +125,115 @@ th, td {
   padding: 10px 15px;
   font-size: 14px;
 }
-
 .cancel-row:hover {
   transform: scale(1.04);
   background-color: #ff5555;
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
 }
-
 .cancel-row i {
   margin-right: 5px;
 }
-
-/* Additional styles for responsiveness can be added here */
 /* Additional styles for responsiveness */
-
-/* Example: Make the "star-row" button smaller on smaller screens */
 @media (max-width: 600px) {
   .star-row {
+    font-size: 10px;
+    padding: 10px 8px;
+  }
+  .save-row,
+  .cancel-row {
+    width: 100%;
+    margin-left: 0;
+    .save-row,
+    .cancel-row i {
+      display: none;
+    }
+    /* Style the "month-year" element differently on smaller screens */
+    .month-year {
+      font-size: 14px;
+      padding: 5px;
+    }
+    /* Style "num-days" element differently on smaller screens */
+    .num-days {
+      font-size: 14px;
+      padding: 5px;
+    }
+  }
+  /* Example: Make the "star-row" button smaller on smaller screens */
+  @media (max-width: 600px) {
+    .star-row {
       font-size: 10px;
       padding: 10px 8px;
+    }
   }
-
-  .save-row, .cancel-row {
-      width: 100%; /* Expand the buttons to full width on smaller screens */
-      margin-left: 0; /* Remove left margin to center the buttons */
-  }
-
-  .save-row, .cancel-row i {
-      display: none; /* Hide the icons on smaller screens */
-  }
-
-  /* Style the "month-year" element differently on smaller screens */
-  .month-year {
-      font-size: 14px;
-      padding: 5px;
-  }
-
-  /* Style "num-days" element differently on smaller screens */
-  .num-days {
-      font-size: 14px;
-      padding: 5px;
-  }
-}
-
-/* You can add more media queries and styles for other elements as needed */
-
-/* Example: Make the "star-row" button smaller on smaller screens */
-@media (max-width: 600px) {
-  .star-row {
+  /* Styles for screens with a maximum width of 600px */
+  @media (max-width: 600px) {
+    .star-row {
       font-size: 10px;
       padding: 10px 8px;
-  }
-}
-/* Additional styles for responsiveness */
+    }
 
-/* Styles for screens with a maximum width of 600px */
-@media (max-width: 600px) {
-  .star-row {
-      font-size: 10px;
-      padding: 10px 8px;
-  }
+    .save-row,
+    .cancel-row {
+      width: 100%;
+      margin-left: 0;
+    }
 
-  .save-row, .cancel-row {
-      width: 100%; /* Expand the buttons to full width on smaller screens */
-      margin-left: 0; /* Remove left margin to center the buttons */
-  }
+    .save-row,
+    .cancel-row i {
+      display: none;
+    }
 
-  .save-row, .cancel-row i {
-      display: none; /* Hide the icons on smaller screens */
-  }
-
-  .month-year {
+    .month-year {
       font-size: 14px;
       padding: 5px;
-  }
+    }
 
-  .num-days {
+    .num-days {
       font-size: 14px;
       padding: 5px;
+    }
   }
-}
 
-/* Styles for screens with a maximum width of 400px */
-@media (max-width: 400px) {
-  .star-row {
+  /* Styles for screens with a maximum width of 400px */
+  @media (max-width: 400px) {
+    .star-row {
       font-size: 8px;
       padding: 8px 6px;
-  }
+    }
+    .cancel-row {
+      margin-left: 0;
+    }
 
-  .cancel-row {
-      margin-left: 0; /* Remove left margin to center the button */
-  }
-
-  .month-year, .num-days {
+    .month-year,
+    .num-days {
       font-size: 12px;
       padding: 4px;
-  }
+    }
 
-  .lead-count {
+    .lead-count {
       font-size: 12px;
       padding: 4px;
+    }
   }
-}
-
-/* Styles for screens with a maximum width of 320px */
-@media (max-width: 320px) {
-  .star-row {
+  /* Styles for screens with a maximum width of 320px */
+  @media (max-width: 320px) {
+    .star-row {
       font-size: 6px;
       padding: 6px 4px;
-  }
+    }
+    .save-row {
+      margin-left: 0;
+    }
 
-  .save-row {
-      margin-left: 0; /* Remove left margin to center the button */
-  }
-
-  .month-year, .num-days {
+    .month-year,
+    .num-days {
       font-size: 10px;
       padding: 3px;
-  }
+    }
 
-  .lead-count {
+    .lead-count {
       font-size: 10px;
       padding: 3px;
+    }
   }
 }
-
-/* You can add more media queries and styles for other elements as needed */

@@ -42,7 +42,6 @@ function handleButtonClick(e) {
         .map((date) => date.trim())
         .filter(Boolean);
 
-      // Check if excluded dates are outside the range
       const invalidDates = excludedDates.filter((date) => {
         const dateObj = new Date(date);
         return dateObj < startDate || dateObj > endDate;
@@ -88,7 +87,7 @@ function handleButtonClick(e) {
         numDays: numDaysCell.textContent,
         expectedDrr: expectedDrrCell.textContent,
         lastUpdated: new Date().toLocaleString(),
-        starred: false, // Initialize as not starred
+        starred: false,
       };
 
       rowData.push(rowObject);
@@ -118,7 +117,6 @@ function handleButtonClick(e) {
   </td>
 `;
 
-
       const dataRows = document.getElementById("data-rows");
       dataRows.appendChild(newRow);
       row.style.display = "none";
@@ -134,7 +132,7 @@ function handleButtonClick(e) {
     // Toggle the star on click
     const row = target.closest("tr");
     if (row) {
-      const starIcon = target.querySelector("i"); // Find the star icon inside the button
+      const starIcon = target.querySelector("i");
       const rowObject = rowData.find(
         (item) => item.id === parseInt(row.children[1].textContent)
       );
@@ -249,7 +247,6 @@ document.addEventListener("DOMContentLoaded", function () {
         .map((date) => date.trim())
         .filter(Boolean);
 
-      // Check if excluded dates are outside the range
       const invalidDates = excludedDates.filter((date) => {
         const dateObj = new Date(date);
         return dateObj < startDate || dateObj > endDate;
@@ -275,7 +272,5 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-
-  
   updateEventListeners();
 });
