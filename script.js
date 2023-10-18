@@ -9,113 +9,120 @@ function handleButtonClick(e) {
   const target = e.target;
   if (target.classList.contains("save-row")) {
     const row = target.closest("tr");
-    const startDateInput = row.querySelector(".start-date");
-    const endDateInput = row.querySelector(".end-date");
-    const leadCountInput = row.querySelector(".lead-count");
-    const monthYearCell = row.querySelector(".month-year");
-    const numDaysCell = row.querySelector(".num-days");
-    const expectedDrrCell = row.querySelector(".expected-drr");
-    const excludedDatesInput = row.querySelector(".dates-excluded");
-    const saveButton = row.querySelector(".save-row");
-    const cancelButton = row.querySelector(".cancel-row");
+    if (row) {
+      const startDateInput = row.querySelector(".start-date");
+      const endDateInput = row.querySelector(".end-date");
+      const leadCountInput = row.querySelector(".lead-count");
+      const monthYearCell = row.querySelector(".month-year");
+      const numDaysCell = row.querySelector(".num-days");
+      const expectedDrrCell = row.querySelector(".expected-drr");
+      const excludedDatesInput = row.querySelector(".dates-excluded");
 
-    if (
-      !startDateInput.value ||
-      !endDateInput.value ||
-      !leadCountInput.value
-    ) {
-      alert("Please fill in Start Date, End Date, and Lead Count before saving.");
-      return;
+      if (
+        !startDateInput.value ||
+        !endDateInput.value ||
+        !leadCountInput.value
+      ) {
+        alert(
+          "Please fill in Start Date, End Date, and Lead Count before saving."
+        );
+        return;
+      }
+
+      const startDate = new Date(startDateInput.value);
+      const endDate = new Date(endDateInput.value);
+
+      if (startDate >= endDate) {
+        alert("End Date should be after Start Date.");
+        return;
+      }
+
+      const excludedDates = excludedDatesInput.value
+        .split(",")
+        .map((date) => date.trim())
+        .filter(Boolean);
+
+      // Check if excluded dates are outside the range
+      const invalidDates = excludedDates.filter((date) => {
+        const dateObj = new Date(date);
+        return dateObj < startDate || dateObj > endDate;
+      });
+
+      if (invalidDates.length > 0) {
+        alert(
+          "Some excluded dates are outside the range of Start Date and End Date."
+        );
+        return;
+      }
+
+      // Calculate the excluded dates and print to the console
+      const excludedDatesStr = excludedDates.join(", ");
+      console.log("Excluded Dates: " + excludedDatesStr);
+
+      // Calculate the number of days
+      const daysDiff =
+        Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24)) -
+        excludedDates.length;
+      numDaysCell.textContent = daysDiff;
+
+      const leadCount = parseInt(leadCountInput.value);
+      const numDays = parseInt(numDaysCell.textContent);
+
+      if (numDays <= 0) {
+        alert(
+          "The calculated number of days is zero or negative. Please adjust the dates and excluded dates."
+        );
+        return;
+      }
+
+      const expectedDrr = leadCount / numDays;
+      expectedDrrCell.textContent = expectedDrr.toFixed(0);
+
+      const rowObject = {
+        id: generateID(),
+        startDate: startDateInput.value,
+        endDate: endDateInput.value,
+        monthYear: monthYearCell.textContent,
+        excludedDates: excludedDatesStr,
+        leadCount: leadCountInput.value,
+        numDays: numDaysCell.textContent,
+        expectedDrr: expectedDrrCell.textContent,
+        lastUpdated: new Date().toLocaleString(),
+        starred: false, // Initialize as not starred
+      };
+
+      rowData.push(rowObject);
+
+      const newRow = document.createElement("tr");
+      newRow.innerHTML = `
+  <td>
+    <button class="star-row">
+      <i class="far fa-star" style="margin-right: 5px;"></i> Star
+    </button>
+  </td>
+  <td>${rowObject.id}</td>
+  <td>${rowObject.startDate}</td>
+  <td>${rowObject.endDate}</td>
+  <td class="month-year">${rowObject.monthYear}</td>
+  <td class="dates-excluded">${rowObject.excludedDates}</td>
+  <td class="num-days">${rowObject.numDays}</td>
+  <td>${rowObject.leadCount}</td>
+  <td class="expected-drr">${rowObject.expectedDrr}</td>
+  <td class="last-updated">
+    <button class="save-row">
+      <i class="fas fa-save" style="margin-right: 5px;"></i> Save
+    </button>
+    <button class="cancel-row">
+      <i class="fas fa-times" style="margin-right: 5px;"></i> Cancel
+    </button>
+  </td>
+`;
+
+
+      const dataRows = document.getElementById("data-rows");
+      dataRows.appendChild(newRow);
+      row.style.display = "none";
     }
-
-    const startDate = new Date(startDateInput.value);
-    const endDate = new Date(endDateInput.value);
-
-    if (startDate >= endDate) {
-      alert("End Date should be after Start Date.");
-      return;
-    }
-
-    const excludedDates = excludedDatesInput.value
-      .split(",")
-      .map((date) => date.trim())
-      .filter(Boolean);
-
-    // Check if excluded dates are outside the range
-    const invalidDates = excludedDates.filter((date) => {
-      const dateObj = new Date(date);
-      return dateObj < startDate || dateObj > endDate;
-    });
-
-    if (invalidDates.length > 0) {
-      alert("Some excluded dates are outside the range of Start Date and End Date.");
-      return;
-    }
-
-    // Calculate the number of days
-    const daysDiff =
-      Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24)) -
-      excludedDates.length;
-    numDaysCell.textContent = daysDiff;
-
-    const leadCount = parseInt(leadCountInput.value);
-    const numDays = parseInt(numDaysCell.textContent);
-
-    if (numDays <= 0) {
-      alert("The calculated number of days is zero or negative. Please adjust the dates and excluded dates.");
-      return;
-    }
-
-    const expectedDrr = leadCount / numDays;
-    expectedDrrCell.textContent = expectedDrr.toFixed(0);
-
-    // After saving, hide the "Save" button and show the "Cancel" button
-    saveButton.style.display = "none";
-    cancelButton.style.display = "inline-block";
-    
-    const rowObject = {
-      id: generateID(),
-      startDate: startDateInput.value,
-      endDate: endDateInput.value,
-      monthYear: monthYearCell.textContent,
-      excludedDates: excludedDatesInput.value,
-      leadCount: leadCountInput.value,
-      numDays: numDaysCell.textContent,
-      expectedDrr: expectedDrrCell.textContent,
-      lastUpdated: new Date().toLocaleString(),
-      starred: false, // Initialize as not starred
-    };
-
-    rowData.push(rowObject);
-
-    const newRow = document.createElement("tr");
-    newRow.innerHTML = `
-      <td>
-        <button class="star-row">
-          <i class="far fa-star" style="margin-right: 5px;"></i> Star
-        </button>
-      </td>
-      <td>${rowObject.id}</td>
-      <td>${rowObject.startDate}</td>
-      <td>${rowObject.endDate}</td>
-      <td class="month-year">${rowObject.monthYear}</td>
-      <td class="dates-excluded">${rowObject.excludedDates}</td>
-      <td class="num-days">${rowObject.numDays}</td>
-      <td>${rowObject.leadCount}</td>
-      <td class="expected-drr">${rowObject.expectedDrr}</td>
-      <td class="last-updated">
-        <button class="save-row">
-          <i class="fas fa-save" style="margin-right: 5px;"></i> Save
-        </button>
-        <button class="cancel-row">
-          <i class="fas fa-times" style="margin-right: 5px;"></i> Cancel
-        </button>
-      </td>
-    `;
-
-    const dataRows = document.getElementById("data-rows");
-    dataRows.appendChild(newRow);
-    row.style.display = "none";
   } else if (target.classList.contains("cancel-row")) {
     const row = target.closest("tr");
     if (row) {
@@ -124,8 +131,6 @@ function handleButtonClick(e) {
       }
     }
   } else if (target.classList.contains("star-row")) {
-    // Your existing star logic
-  
     // Toggle the star on click
     const row = target.closest("tr");
     if (row) {
