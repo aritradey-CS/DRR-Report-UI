@@ -1,38 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-    <link rel="stylesheet" type="text/css" href="styles.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="stylesheet" type="text/css" href="styles.css" />
     <title>Date Range Report</title>
-</head>
-<body>
+  </head>
+  <body>
     <button id="add-new-button">Add New</button>
-    
     <div class="container">
-        <table>
-            <thead>
-                <tr>
-                    <th>Action</th>
-                    <th>ID</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Month, Year</th>                        
-                    <th>Dates Excluded</th>
-                    <th>Number of Days</th>
-                    <th>Lead Count</th>
-                    <th>Expected DRR</th>
-                    <th>Last Updated</th>
-                </tr>
-            </thead>
-            <tbody id="data-rows">
-                <!-- Initially, you can populate 10 rows here -->
-            </tbody>
-        </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Action</th>
+            <th>ID</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Month, Year</th>
+            <th>Dates Excluded</th>
+            <th>Number of Days</th>
+            <th>Lead Count</th>
+            <th>Expected DRR</th>
+            <th>Last Updated</th>
+          </tr>
+        </thead>
+        <tbody id="data-rows">
+            <tr class="data-row">
+              <td>
+                <button class="star-row"><i class="far fa-star"></i> Star</button>
+              </td>
+              <td class="id">Generated ID</td>
+              <td>
+                <input type="date" class="start-date" />
+              </td>
+              <td>
+                <input type="date" class="end-date" />
+              </td>
+              <td class="month-year">Month, Year</td>
+              <td>
+                <input
+                  type="text"
+                  class="dates-excluded"
+                  placeholder="Enter dates (comma-separated)"
+                />
+              </td>
+              <td class="num-days">Number of Days</td>
+              <td>
+                <input type="number" class="lead-count" />
+              </td>
+              <td class="expected-drr">Expected DRR</td>
+              <td class="last-updated">
+                <button class="save-row" data-action="save" style="display: inline-block;">
+                  <i class="fas fa-save" style="margin-right: 5px;"></i> Save
+                </button>
+                <button class="cancel-row" data-action="cancel" style="display: none;">
+                  <i class="fas fa-times" style="margin-right: 5px;"></i> Cancel
+                </button>
+              </td>
+            </tr>
+          </tbody>
+          
+      </table>
     </div>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    />
 
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
